@@ -1,0 +1,319 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Registro de Técnicos</title>
+    <link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css" rel="stylesheet" />
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Roboto:wght@400;500&display=swap');
+        
+        body {
+            font-family: 'Roboto', sans-serif;
+            background-color: #f5f5f5;
+            margin: 0;
+            padding: 20px;
+            animation: fadeIn 0.5s ease-in-out;
+        }
+        
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(-20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        
+        .container {
+            max-width: 800px;
+            margin: 0 auto;
+            background-color: #fff;
+            padding: 30px;
+            border-radius: 10px;
+            box-shadow: 0 0 20px rgba(255, 0, 0, 0.1);
+            border: 1px solid #ff0000;
+        }
+        
+        h1 {
+            color: #d32f2f;
+            text-align: center;
+            margin-bottom: 30px;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.1);
+        }
+        
+        .form-group {
+            margin-bottom: 20px;
+        }
+        
+        label {
+            display: block;
+            margin-bottom: 8px;
+            color: #d32f2f;
+            font-weight: 500;
+        }
+        
+        input, select {
+            width: 100%;
+            padding: 12px;
+            border: 1px solid #ffcdd2;
+            border-radius: 5px;
+            font-size: 16px;
+            transition: all 0.3s;
+            box-sizing: border-box;
+        }
+        
+        input:focus, select:focus {
+            border-color: #d32f2f;
+            box-shadow: 0 0 5px rgba(211, 47, 47, 0.5);
+            outline: none;
+        }
+        
+        input[type="text"] {
+            text-transform: uppercase;
+        }
+        
+        input[type="number"] {
+            appearance: textfield;
+            -moz-appearance: textfield;
+        }
+        
+        input[type="number"]::-webkit-outer-spin-button,
+        input[type="number"]::-webkit-inner-spin-button {
+            -webkit-appearance: none;
+            margin: 0;
+        }
+        
+        .btn {
+            background-color: #d32f2f;
+            color: white;
+            border: none;
+            padding: 12px 20px;
+            font-size: 16px;
+            border-radius: 5px;
+            cursor: pointer;
+            width: 100%;
+            transition: all 0.3s;
+            text-transform: uppercase;
+            font-weight: 500;
+            letter-spacing: 1px;
+        }
+        
+        .btn:hover {
+            background-color: #b71c1c;
+            box-shadow: 0 5px 15px rgba(211, 47, 47, 0.4);
+        }
+        
+        .select2-container--default .select2-selection--single {
+            height: 46px;
+            border: 1px solid #ffcdd2;
+            border-radius: 5px;
+        }
+        
+        .select2-container--default .select2-selection--single .select2-selection__rendered {
+            line-height: 46px;
+        }
+        
+        .select2-container--default .select2-selection--single .select2-selection__arrow {
+            height: 44px;
+        }
+        
+        .select2-container--default .select2-results__option--highlighted[aria-selected] {
+            background-color: #d32f2f;
+        }
+        
+        .select2-container--default .select2-results__option[aria-selected=true] {
+            background-color: #ffcdd2;
+            color: #000;
+        }
+        
+        .confirmation {
+            display: none;
+            background-color: #4CAF50;
+            color: white;
+            text-align: center;
+            padding: 15px;
+            border-radius: 5px;
+            margin-top: 20px;
+            animation: slideDown 0.5s ease-out;
+        }
+        
+        @keyframes slideDown {
+            from { opacity: 0; transform: translateY(-20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>REGISTRO DE TÉCNICOS</h1>
+        <form id="tecnicoForm"action="php/guardar_tecnico.php" method="POST">
+            <div class="form-group">
+                <label for="cedula">Cédula:</label>
+                <input type="number" id="cedula" name="cedula" placeholder="Ingrese solo números" required>
+            </div>
+            
+            <div class="form-group">
+                <label for="nombre">Nombre Completo:</label>
+                <input type="text" id="nombre" name="nombre" placeholder="Ingrese el nombre completo" required>
+            </div>
+            
+            <div class="form-group">
+                <label for="aliado">Aliado:</label>
+                <select id="aliado" name="aliado" class="select2" required>
+                    <option value=""></option>
+                    <option value="TABASCO">TABASCO</option>
+                    <option value="CONECTAR">CONECTAR</option>
+                    <option value="ZENIX">ZENIX</option>
+                    <option value="WAP">WAP</option>
+                    <option value="PHONEMOVIL">PHONEMOVIL</option>
+                    <option value="DISTRIBUIDORES DEL QUINDIO">DISTRIBUIDORES DEL QUINDIO</option>
+                    <option value="ISAMOVIL">ISAMOVIL</option>
+                    <option value="FENIX">FENIX</option>
+                    <option value="JESMART">JESMART</option>
+                </select>
+            </div>
+            
+            <div class="form-group">
+                <label for="carpeta">Carpeta:</label>
+                <select id="carpeta" name="carpeta" required>
+                    <option value=""></option>
+                    <option value="ARREGLOS">ARREGLOS</option>
+                    <option value="INSTALACIONES">INSTALACIONES</option>
+                    <option value="POSVENTAS">POSVENTAS</option>
+                    <option value="TRASLADOS">TRASLADOS</option>
+                    <option value="WTTH">WTTH</option>
+                    <option value="SUPERVISOR">SUPERVISOR</option>
+                </select>
+            </div>
+            
+            <div class="form-group">
+                <label for="estado">Estado:</label>
+                <select id="estado" name="estado" required>
+                    <option value=""></option>
+                    <option value="ACTIVO">ACTIVO</option>
+                    <option value="RETIRADO">RETIRADO</option>
+                    <option value="LICENCIA">LICENCIA</option>
+                    <option value="INCAPACIDAD">INCAPACIDAD</option>
+                </select>
+            </div>
+            
+            <div class="form-group">
+                <label for="segmento">Segmento:</label>
+                <select id="segmento" name="segmento" required>
+                    <option value=""></option>
+                    <option value="HFC">HFC</option>
+                    <option value="FTTH">FTTH</option>
+                    <option value="DTH">DTH</option>
+                </select>
+            </div>
+            
+            <div class="form-group">
+                <label for="supervisor">Supervisor:</label>
+                <select id="supervisor" name="supervisor" class="select2" required>
+                    <option value=""></option>
+                    <option value="ALEX FRANCISCO PALOMAR REYES">ALEX FRANCISCO PALOMAR REYES</option>
+                    <option value="ALEXIS FERNANDO MONTAO CUERO">ALEXIS FERNANDO MONTAO CUERO</option>
+                    <option value="ANGULO QUINONES JUAN MARTIN">ANGULO QUINONES JUAN MARTIN</option>
+                    <option value="BENITEZ RODRIGUEZ GENER MAURICIO">BENITEZ RODRIGUEZ GENER MAURICIO</option>
+                    <option value="CARLOS ANDRES CASTILLO MESIAS">CARLOS ANDRES CASTILLO MESIAS</option>
+                    <option value="CARLOS DANIEL GOMEZ APONZA">CARLOS DANIEL GOMEZ APONZA</option>
+                    <option value="CARREJO LONDONO JOSE ELIECER">CARREJO LONDONO JOSE ELIECER</option>
+                </select>
+            </div>
+            
+            <div class="form-group">
+                <label for="interventor">Interventor:</label>
+                <select id="interventor" name="interventor" class="select2" required>
+                    <option value=""></option>
+                    <option value="ALBERTO ROJAS EDWARD">ALBERTO ROJAS EDWARD</option>
+                    <option value="ANDRES FELIPE TAMAYO SALAZAR">ANDRES FELIPE TAMAYO SALAZAR</option>
+                    <option value="ARTUNDUAGA TORRES DEIVER ADRIAN">ARTUNDUAGA TORRES DEIVER ADRIAN</option>
+                    <option value="BRAGIN OMAR MENA RIVAS">BRAGIN OMAR MENA RIVAS</option>
+                    <option value="CARLOS ALBERTO RIOS CASTRILLON">CARLOS ALBERTO RIOS CASTRILLON</option>
+                    <option value="CARLOS ALDEMAR CAICEDO LINARES">CARLOS ALDEMAR CAICEDO LINARES</option>
+                </select>
+            </div>
+            
+            <div class="form-group">
+                <label for="telefono">Teléfono:</label>
+                <input type="number" id="telefono" name="telefono" placeholder="Ingrese solo números" required>
+            </div>
+            
+            <button type="submit" class="btn">REGISTRAR TÉCNICO</button>
+        </form>
+        
+        <div id="confirmation" class="confirmation">
+            Los datos del técnico han sido registrados correctamente!
+        </div>
+    </div>
+
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
+    <script>
+        $(document).ready(function() {
+            // Inicializar Select2 para los campos con buscador
+            $('.select2').select2({
+                placeholder: "Seleccione una opción",
+                allowClear: true,
+                width: '100%'
+            });
+            
+            // Convertir a mayúsculas el nombre mientras se escribe
+            $('#nombre').on('input', function() {
+                this.value = this.value.toUpperCase();
+            });
+            
+            // Validar campos numéricos
+            $('input[type="number"]').on('input', function(e) {
+                this.value = this.value.replace(/[^0-9]/g, '');
+            });
+            
+            // Validar campos de texto (solo letras y espacios)
+            $('#nombre').on('input', function(e) {
+                this.value = this.value.replace(/[^a-zA-ZáéíóúÁÉÍÓÚñÑ\s]/g, '');
+            });
+            
+                        // ...existing code...
+            // Manejar el envío del formulario
+            $('#tecnicoForm').on('submit', function(e) {
+                e.preventDefault();
+            
+                // Validar que todos los campos estén completos
+                let isValid = true;
+                $(this).find('input, select').each(function() {
+                    if (!$(this).val()) {
+                        isValid = false;
+                        $(this).css('border-color', 'red');
+                    } else {
+                        $(this).css('border-color', '#ffcdd2');
+                    }
+                });
+            
+                if (isValid) {
+                    // Enviar datos por AJAX a guardar_tecnico.php
+                    $.ajax({
+                        url: $(this).attr('action'),
+                        type: 'POST',
+                        data: $(this).serialize(),
+                        success: function(response) {
+                            if (response.trim().toLowerCase().includes("exitoso")) {
+                                $('#confirmation').fadeIn();
+                                setTimeout(function() {
+                                    $('#confirmation').fadeOut();
+                                }, 3000);
+                                $('#tecnicoForm')[0].reset();
+                                $('.select2').val(null).trigger('change');
+                            } else {
+                                alert('Error al registrar: ' + response);
+                            }
+                        },
+                        error: function() {
+                            alert('Error de conexión con el servidor.');
+                        }
+                    });
+                } else {
+                    alert('Por favor complete todos los campos requeridos.');
+                }
+            });
+            
+        });
+    </script>
+</body>
+</html>
