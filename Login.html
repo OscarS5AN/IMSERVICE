@@ -20,6 +20,7 @@
             --transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
         }
         
+        
         * {
             margin: 0;
             padding: 0;
@@ -723,11 +724,12 @@
             
             console.log(usuario, clave);
 
-            fetch('login.php', {
+            fetch('http://localhost:5000/login', { // Cambia si tu backend está en otro host/puerto
                 method: 'POST',
                 headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
                 body: `usuario=${encodeURIComponent(usuario)}&clave=${encodeURIComponent(clave)}`
             })
+            
             .then(response => response.text())
             .then(data => {
                 if (data.trim() === "ok") {
