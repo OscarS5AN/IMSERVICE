@@ -316,6 +316,20 @@
             </div>
             
             <script>
+
+                document.addEventListener('DOMContentLoaded', function() {
+                // Mostrar el nombre del usuario en el dashboard
+                const nombreUsuario = localStorage.getItem('nombre');
+                    if (nombreUsuario) {
+                        const welcomeElement = document.querySelector('.header h3');
+                        if (welcomeElement) {
+                            welcomeElement.textContent = `Bienvenido ${nombreUsuario}`;
+                        }
+                    }
+
+                    // Resto del código existente...
+                });
+
                 // JavaScript para el menú desplegable
                 document.addEventListener('DOMContentLoaded', function() {
                     const menuItems = document.querySelectorAll('.has-submenu');

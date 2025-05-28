@@ -20,7 +20,6 @@
             --transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
         }
         
-        
         * {
             margin: 0;
             padding: 0;
@@ -724,12 +723,11 @@
             
             console.log(usuario, clave);
 
-            fetch('http://localhost:5000/login', { // Cambia si tu backend está en otro host/puerto
+            fetch('login.php', {
                 method: 'POST',
                 headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
                 body: `usuario=${encodeURIComponent(usuario)}&clave=${encodeURIComponent(clave)}`
             })
-            
             .then(response => response.text())
             .then(data => {
                 if (data.trim() === "ok") {
@@ -857,7 +855,41 @@
             
             // Limpiar el formulario
             this.reset();
+
+            //logica del login
+        document.getElementById('loginForm').addEventListener('submit', function(e) {
+            e.preventDefault();
+            const usuario = document.getElementById('usuario').value;
+            const clave = document.getElementById('clave').value;
+    
+            fetch('http://localhost:5000/login', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
+                body: `usuario=${encodeURIComponent(usuario)}&clave=${encodeURIComponent(clave)}`
+            })
+            .then(res => {
+                if (!res.ok) {
+                    throw new Error('Error en la autenticación');
+                }
+                return res.json();
+            })
+            .then(data => {
+                if (data.status === "ok") {
+                    localStorage.setItem('cedula', usuario);
+                    localStorage.setItem('nombre', data.nombre);
+                    window.location.href = "Index.html";
+                } else {
+                    alert("Usuario o contraseña incorrectos");
+                }
+            })
+            .catch(error => {
+                console.error('Error:', error);
+                alert("Error en el servidor. Por favor intente más tarde.");
+            });
+             });
         });
     </script>
+
+        
 </body>
 </html>
